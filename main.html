@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aireen Joice Dulatre - Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap');
+
+    :root{
+      --neon-red:#ff0040;
+      --neon-orange:#ff4500;
+      --neon-pink:#ff1493;
+      --neon-blue:#00f5ff;
+      --neon-green:#39ff14;
+      --neon-purple:#bf00ff;
+      --dark-bg:#0a0a0a;
+    }
+
+    *{ scroll-behavior:smooth; }
+    body{
+      font-family:'Rajdhani',sans-serif;
+      background: linear-gradient(135deg, #0a0a0a 0%, #2e1a1a 25%, #1a0a0a 50%, #2e1a2e 75%, #1a0a2e 100%);
+      background-size:400% 400%;
+      animation: gradientShift 15s ease infinite;
+      color:#fff; overflow-x:hidden;
+    }
+    @keyframes gradientShift{
+      0%{background-position:0% 50%}
+      25%{background-position:100% 50%}
+      50%{background-position:100% 100%}
+      75%{background-position:0% 100%}
+      100%{background-position:0% 50%}
+    }
+
+    .orbitron{ font-family:'Orbitron',monospace; }
+
+    .neon-text{
+      text-shadow:0 0 5px var(--neon-red),0 0 10px var(--neon-red),0 0 15px var(--neon-red),0 0 20px var(--neon-red);
+      animation:textFlicker 3s infinite alternate;
+    }
+    @keyframes textFlicker{
+      0%,100%{ text-shadow:0 0 5px var(--neon-red),0 0 10px var(--neon-red),0 0 15px var(--neon-red),0 0 20px var(--neon-red); }
+      50%{ text-shadow:0 0 2px var(--neon-red),0 0 5px var(--neon-red),0 0 8px var(--neon-red),0 0 12px var(--neon-red); }
+    }
+
+    .neon-border{
+      border:2px solid var(--neon-red);
+      box-shadow:0 0 10px var(--neon-red), inset 0 0 10px rgba(255,0,64,.1);
+      animation:borderPulse 2s ease-in-out infinite alternate;
+    }
+    @keyframes borderPulse{
+      0%{ border-color:var(--neon-red); box-shadow:0 0 10px var(--neon-red), inset 0 0 10px rgba(255,0,64,.1); }
+      100%{ border-color:var(--neon-pink); box-shadow:0 0 20px var(--neon-pink), inset 0 0 15px rgba(255,20,147,.2); }
+    }
+
+    .glass-card{
+      background:rgba(35,15,15,.8);
+      backdrop-filter: blur(10px);
+      border:1px solid rgba(255,0,64,.2);
+      transition:all .3s ease;
+      animation: cardGlow 4s ease-in-out infinite alternate;
+    }
+    .glass-card:hover{ background:rgba(35,15,15,.9); border:1px solid rgba(255,0,64,.5); transform:translateY(-5px) scale(1.02); box-shadow:0 10px 30px rgba(255,0,64,.3); }
+    @keyframes cardGlow{ 0%{box-shadow:0 0 5px rgba(255,0,64,.1)} 100%{box-shadow:0 0 15px rgba(255,0,64,.2),0 0 25px rgba(255,20,147,.1)} }
+
+    .floating{ animation:float 6s ease-in-out infinite; }
+    .floating-rotate{ animation:floatRotate 8s ease-in-out infinite; }
+    .floating-scale{ animation:floatScale 5s ease-in-out infinite; }
+    @keyframes float{ 0%,100%{transform:translateY(0) rotate(0)} 50%{transform:translateY(-20px) rotate(5deg)} }
+    @keyframes floatRotate{ 0%,100%{transform:translateY(0) rotate(0) scale(1)} 25%{transform:translateY(-15px) rotate(90deg) scale(1.1)} 50%{transform:translateY(-30px) rotate(180deg) scale(.9)} 75%{transform:translateY(-15px) rotate(270deg) scale(1.1)} }
+    @keyframes floatScale{ 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-25px) scale(1.2)} }
+
+    /* SKILLS (radar + hex) */
+    .skill-radar{ position:relative; width:300px; height:300px; margin:0 auto; border-radius:50%; background: radial-gradient(circle, rgba(0,245,255,.1) 0%, transparent 70%); border:2px solid var(--neon-blue); animation: radarSpin 8s linear infinite; }
+    .skill-radar::before{ content:''; position:absolute; top:50%; left:50%; width:2px; height:150px; background:linear-gradient(to bottom,var(--neon-blue),transparent); transform-origin:bottom; animation: radarSweep 4s linear infinite; }
+    @keyframes radarSpin{ 0%{transform:rotate(0)} 100%{transform:rotate(360deg)} }
+    @keyframes radarSweep{ 0%{transform:translate(-50%,-100%) rotate(0)} 100%{transform:translate(-50%,-100%) rotate(360deg)} }
+    .skill-orb{ position:absolute; width:60px; height:60px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:12px; text-align:center; cursor:pointer; transition:.3s; animation: orbFloat 3s ease-in-out infinite; }
+    .skill-orb:hover{ transform: scale(1.2); z-index:10; }
+    @keyframes orbFloat{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    .skill-orb.react{ top:20px; left:120px; background:linear-gradient(135deg,#61dafb,#21a9c7); }
+    .skill-orb.node{ top:80px; right:20px; background:linear-gradient(135deg,#68a063,#3c5e3a); animation-delay:.5s; }
+    .skill-orb.python{ bottom:80px; right:20px; background:linear-gradient(135deg,#3776ab,#ffd43b); animation-delay:1s; }
+    .skill-orb.aws{ bottom:20px; left:120px; background:linear-gradient(135deg,#ff9900,#232f3e); animation-delay:1.5s; }
+    .skill-orb.docker{ top:80px; left:20px; background:linear-gradient(135deg,#2496ed,#0db7ed); animation-delay:2s; }
+    .skill-orb.mongo{ bottom:80px; left:20px; background:linear-gradient(135deg,#47a248,#4db33d); animation-delay:2.5s; }
+
+    .skill-hexagon{ width:120px; height:104px; position:relative; margin:52px auto; cursor:pointer; transition:.4s; }
+    .skill-hexagon:before,.skill-hexagon:after{ content:""; position:absolute; width:0; border-left:60px solid transparent; border-right:60px solid transparent; }
+    .skill-hexagon:before{ bottom:100%; border-bottom:30px solid; }
+    .skill-hexagon:after{ top:100%; border-top:30px solid; }
+    .skill-hexagon-inner{ height:104px; width:120px; display:flex; align-items:center; justify-content:center; flex-direction:column; position:relative; z-index:2; }
+    .skill-hexagon.frontend:before,.skill-hexagon.frontend:after,.skill-hexagon.frontend .skill-hexagon-inner{ background:linear-gradient(135deg,var(--neon-blue),var(--neon-purple)); }
+    .skill-hexagon.backend:before,.skill-hexagon.backend:after,.skill-hexagon.backend .skill-hexagon-inner{ background:linear-gradient(135deg,var(--neon-green),var(--neon-blue)); }
+    .skill-hexagon.devops:before,.skill-hexagon.devops:after,.skill-hexagon.devops .skill-hexagon-inner{ background:linear-gradient(135deg,var(--neon-orange),var(--neon-red)); }
+    .skill-hexagon:hover{ transform:scale(1.1) rotate(5deg); filter:brightness(1.3); box-shadow:0 0 30px rgba(0,245,255,.6); }
+
+    .tech-particle{ position:absolute; width:4px; height:4px; background:var(--neon-blue); border-radius:50%; animation: particleFloat 3s ease-in-out infinite; }
+    @keyframes particleFloat{ 0%,100%{transform:translateY(0) translateX(0); opacity:.3} 25%{transform:translateY(-20px) translateX(10px); opacity:1} 50%{transform:translateY(-10px) translateX(-15px); opacity:.7} 75%{transform:translateY(-30px) translateX(5px); opacity:1} }
+
+    /* PROJECTS 3D */
+    .project-card-3d{ perspective:1000px; height:400px; }
+    .project-card-inner{ position:relative; width:100%; height:100%; transition: transform .8s; transform-style:preserve-3d; cursor:pointer; }
+    .project-card-3d:hover .project-card-inner{ transform: rotateY(180deg); }
+    .project-card-front,.project-card-back{ position:absolute; width:100%; height:100%; backface-visibility:hidden; border-radius:15px; padding:20px; display:flex; flex-direction:column; justify-content:center; }
+    .project-card-front{ background: linear-gradient(135deg, rgba(0,245,255,.1), rgba(191,0,255,.1)); border:2px solid var(--neon-blue); box-shadow:0 0 30px rgba(0,245,255,.3); }
+    .project-card-back{ background: linear-gradient(135deg, rgba(255,0,64,.1), rgba(255,69,0,.1)); border:2px solid var(--neon-orange); box-shadow:0 0 30px rgba(255,69,0,.3); transform: rotateY(180deg); }
+    .project-hologram{ position:relative; width:100px; height:100px; margin:0 auto 20px; border-radius:50%; background: radial-gradient(circle, var(--neon-blue), transparent); animation: hologramPulse 2s ease-in-out infinite; }
+    .project-hologram::before{ content:''; position:absolute; top:50%; left:50%; width:80px; height:80px; border:2px solid var(--neon-blue); border-radius:50%; transform:translate(-50%,-50%); animation:hologramRotate 4s linear infinite; }
+    @keyframes hologramPulse{ 0%,100%{opacity:.7; transform:scale(1)} 50%{opacity:1; transform:scale(1.1)} }
+    @keyframes hologramRotate{ 0%{transform:translate(-50%,-50%) rotate(0)} 100%{transform:translate(-50%,-50%) rotate(360deg)} }
+
+    /* NAV LINKS */
+    .nav-link{ position:relative; transition:.3s; animation: navGlow 4s ease-in-out infinite alternate; }
+    .nav-link::after{ content:''; position:absolute; bottom:-5px; left:0; width:0; height:3px; background:linear-gradient(90deg,var(--neon-red),var(--neon-orange),var(--neon-pink)); transition:width .3s; box-shadow:0 0 10px rgba(255,0,64,.5); }
+    .nav-link:hover{ text-shadow:0 0 10px var(--neon-red); transform:translateY(-2px); }
+    .nav-link:hover::after{ width:100%; }
+    @keyframes navGlow{ 0%{filter:brightness(1)} 100%{filter:brightness(1.2)} }
+
+    /* CAREER JOURNEY (from v13, integrated) */
+    .chip{ padding:.5rem .9rem; border-radius:9999px; border:1px solid rgba(0,245,255,.35); color:#a5f3fc; background:rgba(0,245,255,.08); transition:.25s; user-select:none; }
+    .chip:hover{ background:rgba(191,0,255,.15); border-color:rgba(191,0,255,.6); color:#e9d5ff; }
+    .chip.active{ background:rgba(0,245,255,.25); border-color:rgba(0,245,255,.8); color:#67e8f9; }
+
+    .timeline-line{ position:absolute; left:50%; top:0; bottom:0; width:4px; background: linear-gradient(to bottom, var(--neon-blue), var(--neon-purple), var(--neon-pink)); transform: translateX(-50%); box-shadow:0 0 20px rgba(0,245,255,.35); opacity:.75; }
+    .experience-item{ position:relative; margin:100px 0; opacity:0; transform:translateY(50px); transition:all .6s ease; }
+    .experience-item.animate{ opacity:1; transform:translateY(0); }
+    .experience-item:nth-child(odd) .experience-content{ margin-left:0; margin-right:60%; text-align:right; }
+    .experience-item:nth-child(even) .experience-content{ margin-left:60%; margin-right:0; text-align:left; }
+    .experience-node{ position:absolute; left:50%; top:50%; width:30px; height:30px; background: radial-gradient(circle, var(--neon-blue), var(--neon-purple)); border:4px solid #0a0a0a; border-radius:50%; transform:translate(-50%,-50%); z-index:10; animation: nodeGlow 2s ease-in-out infinite alternate; }
+    @keyframes nodeGlow{ 0%{ box-shadow:0 0 15px var(--neon-blue) } 100%{ box-shadow:0 0 30px var(--neon-blue), 0 0 45px var(--neon-purple) } }
+    .experience-content{ background:rgba(10,10,10,.9); border:2px solid var(--neon-blue); border-radius:20px; padding:30px; position:relative; backdrop-filter: blur(10px); transition:.3s; }
+    .experience-content:hover{ transform:scale(1.05); border-color:var(--neon-purple); box-shadow:0 0 40px rgba(0,245,255,.4); }
+    .experience-content::before{ content:''; position:absolute; top:50%; width:0; height:0; border:15px solid transparent; }
+    .experience-item:nth-child(odd) .experience-content::before{ right:-30px; border-left-color:var(--neon-blue); transform:translateY(-50%); }
+    .experience-item:nth-child(even) .experience-content::before{ left:-30px; border-right-color:var(--neon-blue); transform:translateY(-50%); }
+    @media (max-width:768px){
+      .timeline-line{ left:30px; }
+      .experience-item:nth-child(odd) .experience-content,
+      .experience-item:nth-child(even) .experience-content{ margin-left:80px; margin-right:0; text-align:left; }
+      .experience-node{ left:30px; }
+      .experience-item:nth-child(odd) .experience-content::before,
+      .experience-item:nth-child(even) .experience-content::before{ left:-30px; right:auto; border-right-color:var(--neon-blue); border-left-color:transparent; }
+    }
+
+    .exp-card{ border:1px solid rgba(0,245,255,.25); background: linear-gradient(180deg,rgba(0,0,0,.45),rgba(0,0,0,.3)); transition:.25s; }
+    .exp-card:hover{ transform: translateY(-4px); border-color: rgba(191,0,255,.6); box-shadow: 0 0 40px rgba(191,0,255,.25), 0 0 25px rgba(0,245,255,.18); }
+    .exp-badge{ background:rgba(103,232,249,.12); border:1px solid rgba(103,232,249,.35); color:#67e8f9; }
+    .tag{ padding:.25rem .6rem; border-radius:999px; font-size:.75rem; }
+    .tg-blue{ background:#2563eb22; border:1px solid #3b82f633; color:#93c5fd; }
+    .tg-green{ background:#16a34a22; border:1px solid #22c55e33; color:#86efac; }
+    .tg-yellow{ background:#ca8a0422; border:1px solid #f59e0b33; color:#fde68a; }
+    .tg-purple{ background:#7c3aed22; border:1px solid #8b5cf633; color:#e9d5ff; }
+  </style>
+</head>
+<body class="text-white">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 w-full z-50 glass-card">
+    <div class="container mx-auto px-6 py-4">
+      <div class="flex justify-between items-center">
+        <div class="orbitron text-2xl font-bold neon-text">AJD</div>
+        <div class="hidden md:flex space-x-8">
+          <a href="#home" class="nav-link hover:text-cyan-400">Home</a>
+          <a href="#about" class="nav-link hover:text-cyan-400">About</a>
+          <a href="#skills" class="nav-link hover:text-cyan-400">Skills</a>
+          <a href="#projects" class="nav-link hover:text-cyan-400">Projects</a>
+          <a href="#experience" class="nav-link hover:text-cyan-400">Experience</a>
+          <a href="#contact" class="nav-link hover:text-cyan-400">Contact</a>
+        </div>
+        <button id="mobile-menu" class="md:hidden">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section id="home" class="min-h-screen flex items-center justify-center relative pt-24">
+    <div class="container mx-auto px-6 text-center">
+      <div class="floating">
+        <div class="flex justify-center mb-8">
+          <div class="relative">
+            <div class="w-40 h-40 rounded-full bg-gradient-to-br from-red-500 via-pink-500 to-purple-600 p-1 floating-scale">
+              <div id="profile-container" class="w-full h-full rounded-full bg-gray-800 flex items-center justify-center overflow-hidden cursor-pointer hover:bg-gray-700 transition-colors">
+                <img id="profile-image" class="w-full h-full object-cover rounded-full hidden" alt="Profile Picture">
+                <svg id="default-avatar" class="w-24 h-24 text-cyan-400" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+              </div>
+            </div>
+            <!-- Upload icon -->
+            <div class="absolute bottom-2 right-2 w-12 h-12 bg-cyan-500 rounded-full flex items-center justify-center cursor-pointer hover:bg-cyan-400 transition-colors shadow-lg hover:shadow-cyan-400/50" onclick="document.getElementById('photo-upload').click()">
+              <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 15.5A3.5 3.5 0 0 1 8.5 12A3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5a3.5 3.5 0 0 1-3.5 3.5m7.43-2.53c.04-.32.07-.64.07-.97c0-.33-.03-.66-.07-1l1.86-1.46c.17-.13.21-.36.1-.54l-1.76-3.05a.26.26 0 0 0-.35-.09l-2.19.87c-.46-.35-.96-.63-1.51-.84L15.3 4.5c-.03-.2-.2-.35-.4-.35h-3.5c-.2 0-.37.15-.4.35l-.28 2.32c-.55.21-1.05.49-1.51.84l-2.19-.87c-.18-.07-.37 0-.35.09L5.21 9.88c-.11.18-.07.41.1.54L7.17 11.97c-.04.34-.07.67-.07 1c0 .33.03.65.07.97l-1.86 1.46c-.17.13-.21.36-.1.54l1.76 3.05a.26.26 0 0 0 .35.09l2.19-.87c.46.35.96.63 1.51.84l.28 2.32c.03.2.2.35.4.35h3.5c.2 0 .37-.15.4-.35l.28-2.32c.55-.21 1.05-.49 1.51-.84l2.19.87c.18.07.37 0 .35-.09l1.76-3.05c.11-.18.07-.41-.1-.54l-1.86-1.46Z"/>
+              </svg>
+            </div>
+            <input type="file" id="photo-upload" accept="image/*" class="hidden">
+          </div>
+        </div>
+
+        <h1 class="orbitron text-5xl md:text-7xl font-black mb-6 neon-text">AIREEN JOICE DULATRE</h1>
+        <div class="text-2xl md:text-4xl mb-8 border-r-4 border-red-500 inline-block pr-2 typing-animation">Software Engineer & Full-Stack Developer</div>
+        <p class="text-xl mb-12 max-w-3xl mx-auto text-gray-300">
+          Crafting innovative digital solutions with cutting-edge technologies. Transforming ideas into powerful, scalable applications.
+        </p>
+        <div class="flex flex-col md:flex-row gap-6 justify-center">
+          <a href="#projects" class="neon-border px-8 py-4 rounded-lg hover:bg-cyan-400 hover:text-black transition-all duration-300">View My Work</a>
+          <button class="border-2 border-purple-500 px-8 py-4 rounded-lg hover:bg-purple-500 transition-all duration-300">Download Resume</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating decor -->
+    <div class="absolute top-20 left-10 w-20 h-20 border-2 border-red-400 rounded-full floating-rotate opacity-40"></div>
+    <div class="absolute bottom-20 right-10 w-16 h-16 border-2 border-orange-500 rotate-45 floating-scale opacity-40" style="animation-delay:-2s"></div>
+    <div class="absolute top-1/2 left-20 w-12 h-12 border-2 border-pink-400 floating opacity-40" style="animation-delay:-4s"></div>
+    <div class="absolute top-1/3 right-20 w-14 h-14 border-2 border-red-500 rounded-lg floating-rotate opacity-40" style="animation-delay:-1s"></div>
+    <div class="absolute bottom-1/3 left-1/4 w-10 h-10 border-2 border-orange-400 rounded-full floating-scale opacity-40" style="animation-delay:-3s"></div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="py-20">
+    <div class="container mx-auto px-6">
+      <h2 class="orbitron text-4xl md:text-6xl font-bold text-center mb-16 neon-text">About Me</h2>
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="glass-card p-8 rounded-lg">
+          <h3 class="text-2xl font-bold mb-6 text-green-400 text-center" style="text-shadow:0 0 10px #4ade80;">Who I Am</h3>
+          <p class="text-lg mb-6 leading-relaxed text-green-300">
+            I'm a passionate software engineer with expertise in full-stack development, specializing in robust, scalable applications.
+          </p>
+          <p class="text-lg leading-relaxed text-green-300">
+            I value clean code, great UX, and staying sharp with modern tools to deliver delightful, reliable products.
+          </p>
+        </div>
+        <div class="terminal">
+          <div class="flex items-center mb-4">
+            <div class="w-3 h-3 bg-red-500 rounded-full mr-2"></div>
+            <div class="w-3 h-3 bg-yellow-500 rounded-full mr-2"></div>
+            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+            <span class="ml-4 text-sm">terminal</span>
+          </div>
+          <div>
+            <div>> whoami</div>
+            <div>aireen_dulatre@developer:~$</div>
+            <div>> skills --list</div>
+            <div class="text-cyan-400 mt-2">
+              JavaScript, TypeScript, React, Node.js, Python, AWS, Docker, PostgreSQL, MongoDB
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills (v12 + v13) -->
+  <section id="skills" class="py-20 relative overflow-hidden">
+    <div class="container mx-auto px-6">
+      <h2 class="orbitron text-4xl md:text-6xl font-bold text-center mb-16 neon-text">Skills Matrix</h2>
+
+      <div class="mb-20">
+        <div class="skill-radar mx-auto relative">
+          <div class="skill-orb react">React</div>
+          <div class="skill-orb node">Node.js</div>
+          <div class="skill-orb python">Python</div>
+          <div class="skill-orb aws">AWS</div>
+          <div class="skill-orb docker">Docker</div>
+          <div class="skill-orb mongo">MongoDB</div>
+
+          <div class="tech-particle" style="top:30%; left:20%; animation-delay:0s"></div>
+          <div class="tech-particle" style="top:60%; right:25%; animation-delay:1s"></div>
+          <div class="tech-particle" style="bottom:40%; left:30%; animation-delay:2s"></div>
+          <div class="tech-particle" style="top:45%; right:35%; animation-delay:.5s"></div>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-12">
+        <div class="text-center">
+          <div class="skill-hexagon frontend">
+            <div class="skill-hexagon-inner">
+              <svg class="w-12 h-12 text-white mb-2" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              <span class="text-sm font-bold">Frontend</span>
+            </div>
+          </div>
+          <h3 class="text-xl font-bold mt-4 text-cyan-400">Frontend Mastery</h3>
+          <div class="mt-4 space-y-2 text-sm">
+            <div class="flex justify-between"><span>React/Next.js</span><span class="text-cyan-400">Expert</span></div>
+            <div class="flex justify-between"><span>TypeScript</span><span class="text-cyan-400">Advanced</span></div>
+            <div class="flex justify-between"><span>Vue.js</span><span class="text-cyan-400">Proficient</span></div>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <div class="skill-hexagon backend">
+            <div class="skill-hexagon-inner">
+              <svg class="w-12 h-12 text-white mb-2" viewBox="0 0 24 24" fill="currentColor"><path d="M4.5 12.75l6 6 9-13.5"/></svg>
+              <span class="text-sm font-bold">Backend</span>
+            </div>
+          </div>
+          <h3 class="text-xl font-bold mt-4 text-green-400">Backend Power</h3>
+          <div class="mt-4 space-y-2 text-sm">
+            <div class="flex justify-between"><span>Node.js</span><span class="text-green-400">Expert</span></div>
+            <div class="flex justify-between"><span>Python</span><span class="text-green-400">Advanced</span></div>
+            <div class="flex justify-between"><span>PostgreSQL</span><span class="text-green-400">Proficient</span></div>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <div class="skill-hexagon devops">
+            <div class="skill-hexagon-inner">
+              <svg class="w-12 h-12 text-white mb-2" viewBox="0 0 24 24" fill="currentColor"><path d="M19.07 4.93l-1.41 1.41C19.1 7.79 20 9.79 20 12s-.9 4.21-2.34 5.66l1.41 1.41C20.88 17.26 22 14.76 22 12s-1.12-5.26-2.93-7.07z"/></svg>
+              <span class="text-sm font-bold">DevOps</span>
+            </div>
+          </div>
+          <h3 class="text-xl font-bold mt-4 text-orange-400">Cloud & DevOps</h3>
+          <div class="mt-4 space-y-2 text-sm">
+            <div class="flex justify-between"><span>AWS</span><span class="text-orange-400">Advanced</span></div>
+            <div class="flex justify-between"><span>Docker</span><span class="text-orange-400">Expert</span></div>
+            <div class="flex justify-between"><span>Kubernetes</span><span class="text-orange-400">Proficient</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects (3D cards) -->
+  <section id="projects" class="py-20">
+    <div class="container mx-auto px-6">
+      <h2 class="orbitron text-4xl md:text-6xl font-bold text-center mb-16 neon-text">Featured Projects</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="project-card-3d">
+          <div class="project-card-inner">
+            <div class="project-card-front">
+              <div class="project-hologram">
+                <svg class="w-16 h-16 text-cyan-400 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" viewBox="0 0 20 20" fill="currentColor"><path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/></svg>
+              </div>
+              <h3 class="text-2xl font-bold text-cyan-400 mb-4">E-Commerce Platform</h3>
+              <p class="text-gray-300 mb-4">Next-gen shopping with AI recommendations</p>
+            </div>
+            <div class="project-card-back">
+              <h3 class="text-xl font-bold text-orange-400 mb-4">Technical Details</h3>
+              <div class="space-y-2 text-left text-gray-200">
+                <div>React 18 + TypeScript</div>
+                <div>Node.js + Express API</div>
+                <div>MongoDB + Redis</div>
+                <div>Stripe Integration</div>
+                <div>AWS S3 + CloudFront</div>
+              </div>
+              <div class="flex gap-3 mt-6">
+                <button class="flex-1 bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded transition">Live Demo</button>
+                <button class="flex-1 border border-orange-500 hover:bg-orange-500 px-4 py-2 rounded transition">GitHub</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card-3d">
+          <div class="project-card-inner">
+            <div class="project-card-front">
+              <div class="project-hologram">
+                <svg class="w-16 h-16 text-cyan-400 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" viewBox="0 0 20 20" fill="currentColor"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <h3 class="text-2xl font-bold text-cyan-400 mb-4">AI Task Manager</h3>
+              <p class="text-gray-300 mb-4">Project management with ML insights</p>
+            </div>
+            <div class="project-card-back">
+              <h3 class="text-xl font-bold text-orange-400 mb-4">Tech Stack</h3>
+              <div class="space-y-2 text-left text-gray-200">
+                <div>Vue 3 + Composition API</div>
+                <div>Python FastAPI</div>
+                <div>TensorFlow Models</div>
+                <div>WebSocket Real-time</div>
+                <div>Dockerized</div>
+              </div>
+              <div class="flex gap-3 mt-6">
+                <button class="flex-1 bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded transition">Live Demo</button>
+                <button class="flex-1 border border-orange-500 hover:bg-orange-500 px-4 py-2 rounded transition">GitHub</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card-3d">
+          <div class="project-card-inner">
+            <div class="project-card-front">
+              <div class="project-hologram">
+                <svg class="w-16 h-16 text-cyan-400 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" viewBox="0 0 20 20" fill="currentColor"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/></svg>
+              </div>
+              <h3 class="text-2xl font-bold text-cyan-400 mb-4">Blockchain Analytics</h3>
+              <p class="text-gray-300 mb-4">Real-time market insights platform</p>
+            </div>
+            <div class="project-card-back">
+              <h3 class="text-xl font-bold text-orange-400 mb-4">Architecture</h3>
+              <div class="space-y-2 text-left text-gray-200">
+                <div>React + D3 Charts</div>
+                <div>GraphQL Gateway</div>
+                <div>Microservices</div>
+                <div>Kubernetes</div>
+                <div>Elasticsearch</div>
+              </div>
+              <div class="flex gap-3 mt-6">
+                <button class="flex-1 bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded transition">Live Demo</button>
+                <button class="flex-1 border border-orange-500 hover:bg-orange-500 px-4 py-2 rounded transition">GitHub</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience (combined v12 layout + v13 controls/views) -->
+  <section id="experience" class="py-20 relative">
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-10">
+        <h2 class="orbitron text-4xl md:text-6xl font-bold neon-text">Career Journey</h2>
+        <p class="text-gray-300 mt-4 max-w-2xl mx-auto">Switch views, filter by focus or year, search skills, and open highlights.</p>
+      </div>
+
+      <!-- Controls -->
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-10">
+        <div class="flex bg-gray-900/60 border border-cyan-500/40 rounded-xl overflow-hidden w-full md:w-auto">
+          <button id="viewTimeline" class="px-4 py-2 bg-cyan-500/20 text-cyan-300 hover:bg-cyan-500/30 transition">Timeline</button>
+          <button id="viewCards" class="px-4 py-2 text-gray-300 hover:bg-purple-500/20 transition">Cards</button>
+          <button id="viewMatrix" class="px-4 py-2 text-gray-300 hover:bg-purple-500/20 transition">Matrix</button>
+        </div>
+
+        <div class="flex flex-wrap gap-2">
+          <button class="chip active" data-chip="all">All</button>
+          <button class="chip" data-chip="leadership">Leadership</button>
+          <button class="chip" data-chip="backend">Backend</button>
+          <button class="chip" data-chip="frontend">Frontend</button>
+          <button class="chip" data-chip="devops">DevOps</button>
+        </div>
+
+        <div class="w-full md:w-80">
+          <label class="block text-sm text-gray-400 mb-2">Filter by starting year: <span id="yearValue" class="text-cyan-400 font-semibold">2019</span></label>
+          <input id="yearRange" type="range" min="2019" max="2025" value="2019" class="w-full accent-cyan-400">
+        </div>
+      </div>
+
+      <!-- Search -->
+      <div class="max-w-xl mx-auto mb-8">
+        <input id="searchBox" type="text" placeholder="Search role, company, skill..." class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-cyan-400 transition"/>
+      </div>
+
+      <!-- Timeline View -->
+      <div id="timelineView" class="experience-timeline relative">
+        <div class="timeline-line"></div>
+
+        <div class="experience-item exp-item" data-chip="leadership devops" data-start="2023" data-end="2025" data-title="Senior Software Architect" data-company="TechCorp Global Solutions" data-skills="Kubernetes, Microservices, AWS, Kafka, SRE">
+          <div class="experience-node"></div>
+          <div class="experience-content exp-card">
+            <div class="flex items-center justify-between gap-4 mb-3">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-400 to-purple-500 flex items-center justify-center shadow-lg"><span class="text-sm font-bold">SA</span></div>
+                <h3 class="text-2xl font-bold text-cyan-400 orbitron">Senior Software Architect</h3>
+              </div>
+              <span class="px-3 py-1 rounded-full text-xs exp-badge">2023 — Present</span>
+            </div>
+            <h4 class="text-lg font-semibold mb-2 text-green-400">TechCorp Global Solutions</h4>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4 text-center">
+              <div class="bg-gray-800/60 p-3 rounded-lg"><div class="text-cyan-400 font-bold">1M+</div><div class="text-xs text-gray-400">Daily Users</div></div>
+              <div class="bg-gray-800/60 p-3 rounded-lg"><div class="text-green-400 font-bold">40%</div><div class="text-xs text-gray-400">Cost Down</div></div>
+              <div class="bg-gray-800/60 p-3 rounded-lg"><div class="text-purple-400 font-bold">99.9%</div><div class="text-xs text-gray-400">Uptime</div></div>
+              <div class="bg-gray-800/60 p-3 rounded-lg"><div class="text-orange-400 font-bold">12</div><div class="text-xs text-gray-400">Engineers</div></div>
+            </div>
+            <div class="flex flex-wrap gap-2 mb-3">
+              <span class="px-3 py-1 bg-blue-600 rounded-full text-xs">Kubernetes</span>
+              <span class="px-3 py-1 bg-green-600 rounded-full text-xs">Microservices</span>
+              <span class="px-3 py-1 bg-yellow-600 rounded-full text-xs">AWS</span>
+              <span class="px-3 py-1 bg-purple-600 rounded-full text-xs">Leadership</span>
+            </div>
+            <div class="mt-2">
+              <button class="open-modal text-sm text-cyan-300 hover:text-white px-3 py-2 rounded-lg bg-cyan-500/15 border border-cyan-400/30 transition" data-modal="m1">Read more</button>
+              <button class="download-role text-sm text-purple-200 hover:text-white px-3 py-2 rounded-lg bg-purple-500/15 border border-purple-400/30 transition">Download</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="experience-item exp-item" data-chip="leadership backend frontend" data-start="2021" data-end="2023" data-title="Full Stack Tech Lead" data-company="InnovateLab Technologies" data-skills="React, Node.js, PostgreSQL, CI/CD, Design System">
+          <div class="experience-node"></div>
+          <div class="experience-content exp-card">
+            <div class="flex items-center justify-between gap-4 mb-3">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center shadow-lg"><span class="text-sm font-bold">TL</span></div>
+                <h3 class="text-2xl font-bold text-purple-400 orbitron">Full Stack Tech Lead</h3>
+              </div>
+              <span class="px-3 py-1 rounded-full text-xs exp-badge">2021 — 2023</span>
+            </div>
+            <h4 class="text-lg font-semibold mb-2 text-green-400">InnovateLab Technologies</h4>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4 text-center">
+              <div class="bg-gray-800/60 p-3 rounded-lg"><div class="text-purple-400 font-bold">8</div><div class="text-xs text-gray-400">Products</div></div>
+              <div class="bg-gray-800/60 p-3 rounded-lg"><div class="text-orange-400 font-bold">300%</div><div class="text-xs text-gray-400">Deploy Speed</div></div>
+              <div class="bg-gray-800/60 p-3 rounded-lg"><div class="text-cyan-400 font-bold">24/7</div><div class="text-xs text-gray-400">Monitoring</div></div>
+              <div class="bg-gray-800/60 p-3 rounded-lg"><div class="text-green-400 font-bold">SLA</div><div class="text-xs text-gray-400">99%</div></div>
+            </div>
+            <div class="flex flex-wrap gap-2 mb-3">
+              <span class="px-3 py-1 bg-blue-600 rounded-full text-xs">React</span>
+              <span class="px-3 py-1 bg-red-600 rounded-full text-xs">Node.js</span>
+              <span class="px-3 py-1 bg-green-600 rounded-full text-xs">PostgreSQL</span>
+              <span class="px-3 py-1 bg-purple-600 rounded-full text-xs">CI/CD</span>
+            </div>
+            <div class="mt-2">
+              <button class="open-modal text-sm text-cyan-300 hover:text-white px-3 py-2 rounded-lg bg-cyan-500/15 border border-cyan-400/30 transition" data-modal="m2">Read more</button>
+              <button class="download-role text-sm text-purple-200 hover:text-white px-3 py-2 rounded-lg bg-purple-500/15 border border-purple-400/30 transition">Download</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="experience-item exp-item" data-chip="backend frontend" data-start="2019" data-end="2021" data-title="Senior Developer" data-company="StartupXYZ" data-skills="JavaScript, React Native, MongoDB, Redis, Optimization">
+          <div class="experience-node"></div>
+          <div class="experience-content exp-card">
+            <div class="flex items-center justify-between gap-4 mb-3">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-green-400 to-cyan-500 flex items-center justify-center shadow-lg"><span class="text-sm font-bold">SD</span></div>
+                <h3 class="text-2xl font-bold text-green-400 orbitron">Senior Developer</h3>
+              </div>
+              <span class="px-3 py-1 rounded-full text-xs exp-badge">2019 — 2021</span>
+            </div>
+            <h4 class="text-lg font-semibold mb-2 text-green-400">StartupXYZ</h4>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4 text-center">
+              <div class="bg-gray-800/60 p-3 rounded-lg"><div class="text-green-400 font-bold">100K</div><div class="text-xs text-gray-400">Users</div></div>
+              <div class="bg-gray-800/60 p-3 rounded-lg"><div class="text-blue-400 font-bold">60%</div><div class="text-xs text-gray-400">Faster</div></div>
+              <div class="bg-gray-800/60 p-3 rounded-lg"><div class="text-cyan-400 font-bold">A/B</div><div class="text-xs text-gray-400">Growth</div></div>
+              <div class="bg-gray-800/60 p-3 rounded-lg"><div class="text-orange-400 font-bold">PCI</div><div class="text-xs text-gray-400">Ready</div></div>
+            </div>
+            <div class="flex flex-wrap gap-2 mb-3">
+              <span class="px-3 py-1 bg-orange-600 rounded-full text-xs">JavaScript</span>
+              <span class="px-3 py-1 bg-blue-600 rounded-full text-xs">React Native</span>
+              <span class="px-3 py-1 bg-green-600 rounded-full text-xs">MongoDB</span>
+              <span class="px-3 py-1 bg-red-600 rounded-full text-xs">Redis</span>
+            </div>
+            <div class="mt-2">
+              <button class="open-modal text-sm text-cyan-300 hover:text-white px-3 py-2 rounded-lg bg-cyan-500/15 border border-cyan-400/30 transition" data-modal="m3">Read more</button>
+              <button class="download-role text-sm text-purple-200 hover:text-white px-3 py-2 rounded-lg bg-purple-500/15 border border-purple-400/30 transition">Download</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cards View -->
+      <div id="cardsView" class="hidden grid md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+
+      <!-- Matrix View -->
+      <div id="matrixView" class="hidden">
+        <div class="glass-card p-8 rounded-2xl">
+          <h3 class="orbitron text-2xl font-bold text-cyan-300 mb-4">Focus Matrix</h3>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="exp-card rounded-xl p-4">
+              <div class="text-cyan-300 font-semibold mb-1">Leadership</div>
+              <div class="h-2 w-full bg-white/10 rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-cyan-400 to-purple-500 w-[92%]"></div>
+              </div>
+              <p class="text-gray-400 mt-2 text-sm">Architecture, SRE, templates</p>
+            </div>
+            <div class="exp-card rounded-xl p-4">
+              <div class="text-green-300 font-semibold mb-1">Backend</div>
+              <div class="h-2 w-full bg-white/10 rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-green-400 to-cyan-400 w-[88%]"></div>
+              </div>
+              <p class="text-gray-400 mt-2 text-sm">Node.js, Python, data</p>
+            </div>
+            <div class="exp-card rounded-xl p-4">
+              <div class="text-purple-300 font-semibold mb-1">Frontend</div>
+              <div class="h-2 w-full bg-white/10 rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-purple-400 to-pink-400 w-[80%]"></div>
+              </div>
+              <p class="text-gray-400 mt-2 text-sm">React, RN, design systems</p>
+            </div>
+            <div class="exp-card rounded-xl p-4">
+              <div class="text-yellow-300 font-semibold mb-1">DevOps</div>
+              <div class="h-2 w-full bg-white/10 rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-yellow-400 to-orange-400 w-[84%]"></div>
+              </div>
+              <p class="text-gray-400 mt-2 text-sm">K8s, CI/CD, observability</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modals -->
+      <div id="m1" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-50">
+        <div class="max-w-xl w-[92%] rounded-2xl p-6 border border-cyan-400/40 bg-[#0a0a12]/95">
+          <div class="flex items-center justify-between">
+            <h4 class="orbitron text-xl md:text-2xl font-bold text-cyan-300">Senior Software Architect — Highlights</h4>
+            <button class="close-modal text-gray-400 hover:text-white" data-close="m1">✕</button>
+          </div>
+          <ul class="mt-4 space-y-2 text-gray-300">
+            <li>• Multi-region rollout, progressive delivery, error budgets</li>
+            <li>• Kafka streams, outbox pattern, resilient messaging</li>
+            <li>• Golden-path templates cut setup time from days to hours</li>
+            <li>• Chaos drills + SLOs for 99.9% uptime</li>
+          </ul>
+        </div>
+      </div>
+      <div id="m2" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-50">
+        <div class="max-w-xl w-[92%] rounded-2xl p-6 border border-purple-400/40 bg-[#0a0a12]/95">
+          <div class="flex items-center justify-between">
+            <h4 class="orbitron text-xl md:text-2xl font-bold text-purple-300">Full Stack Tech Lead — Highlights</h4>
+            <button class="close-modal text-gray-400 hover:text-white" data-close="m2">✕</button>
+          </div>
+          <ul class="mt-4 space-y-2 text-gray-300">
+            <li>• 8 product launches from MVP to enterprise</li>
+            <li>• CI/CD pipelines: 300% faster deploys</li>
+            <li>• Typed APIs and a shared design system</li>
+            <li>• 24/7 monitoring playbooks</li>
+          </ul>
+        </div>
+      </div>
+      <div id="m3" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-50">
+        <div class="max-w-xl w-[92%] rounded-2xl p-6 border border-green-400/40 bg-[#0a0a12]/95">
+          <div class="flex items-center justify-between">
+            <h4 class="orbitron text-xl md:text-2xl font-bold text-green-300">Senior Developer — Highlights</h4>
+          <button class="close-modal text-gray-400 hover:text-white" data-close="m3">✕</button>
+          </div>
+          <ul class="mt-4 space-y-2 text-gray-300">
+            <li>• PCI-ready payments core</li>
+            <li>• Load tests revealed scaling bottlenecks</li>
+            <li>• 60% faster responses via caching + tuning</li>
+            <li>• RN modules shared with web components</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-20">
+    <div class="container mx-auto px-6">
+      <h2 class="orbitron text-4xl md:text-6xl font-bold text-center mb-16 neon-text">Get In Touch</h2>
+      <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12">
+        <div class="glass-card p-8 rounded-lg">
+          <h3 class="text-2xl font-bold mb-6 text-cyan-400">Let's Connect</h3>
+          <p class="text-lg mb-8 text-gray-300">Ready to bring your next project to life? I’m excited to collaborate.</p>
+          <div class="space-y-4">
+            <div class="flex items-center">
+              <svg class="w-6 h-6 mr-4 text-cyan-400" viewBox="0 0 20 20" fill="currentColor"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>
+              <span>aireen.dulatre@email.com</span>
+            </div>
+            <div class="flex items-center">
+              <svg class="w-6 h-6 mr-4 text-cyan-400" viewBox="0 0 20 20" fill="currentColor"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg>
+              <span>+1 (555) 123-4567</span>
+            </div>
+            <div class="flex items-center">
+              <svg class="w-6 h-6 mr-4 text-cyan-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+              <span>Available Worldwide</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-card p-8 rounded-lg">
+          <form id="contactForm" class="space-y-6">
+            <div>
+              <label class="block text-sm font-medium mb-2">Name</label>
+              <input type="text" class="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-cyan-400 focus:outline-none transition-colors">
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-2">Email</label>
+              <input type="email" class="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-cyan-400 focus:outline-none transition-colors">
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-2">Subject</label>
+              <input type="text" class="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-cyan-400 focus:outline-none transition-colors">
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-2">Message</label>
+              <textarea rows="5" class="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-cyan-400 focus:outline-none transition-colors resize-none"></textarea>
+            </div>
+            <button type="submit" class="w-full neon-border px-6 py-3 rounded-lg hover:bg-cyan-400 hover:text-black transition-all duration-300">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 bg-gray-900 border-t-2 border-cyan-400">
+    <div class="container mx-auto px-6 text-center">
+      <p class="text-white text-lg font-semibold">© 2024 Aireen Joice Dulatre. All rights reserved.</p>
+      <p class="text-cyan-300 mt-3">Built with passion and cutting-edge technology</p>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth scroll nav
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click',e=>{
+        e.preventDefault();
+        const t=document.querySelector(a.getAttribute('href'));
+        if(t){ t.scrollIntoView({behavior:'smooth', block:'start'}); }
+      });
+    });
+
+    // Mobile menu
+    const mobileMenu=document.getElementById('mobile-menu');
+    const nav=document.querySelector('nav .container > div');
+    mobileMenu.addEventListener('click',()=>{
+      const menu=nav.querySelector('.hidden');
+      menu.classList.toggle('hidden'); menu.classList.toggle('flex');
+      menu.classList.toggle('flex-col'); menu.classList.toggle('absolute');
+      menu.classList.toggle('top-full'); menu.classList.toggle('left-0');
+      menu.classList.toggle('w-full'); menu.classList.toggle('bg-gray-900');
+      menu.classList.toggle('p-4');
+    });
+
+    // Fade-in on scroll for sections and experience items
+    const observer=new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.style.opacity='1';
+          entry.target.style.transform='translateY(0)';
+          if(entry.target.classList.contains('experience-item')){
+            entry.target.classList.add('animate');
+          }
+        }
+      });
+    },{threshold:.1, rootMargin:'0px 0px -50px 0px'});
+
+    document.querySelectorAll('section, .experience-item').forEach(el=>{
+      el.style.opacity='0'; el.style.transform='translateY(50px)';
+      el.style.transition='opacity .6s ease, transform .6s ease';
+      observer.observe(el);
+    });
+
+    // Parallax for floating elements
+    window.addEventListener('scroll',()=>{
+      const scrolled=window.pageYOffset;
+      document.querySelectorAll('.floating, .floating-rotate, .floating-scale').forEach((el,i)=>{
+        const speed=.3+(i*.1);
+        el.style.transform=`translateY(${-(scrolled*speed)}px)`;
+      });
+    });
+
+    // Skill orbs hover sparkle
+    document.querySelectorAll('.skill-orb').forEach(orb=>{
+      orb.addEventListener('mouseenter',function(){
+        this.style.transform='scale(1.3) translateY(-5px)';
+        this.style.zIndex='20';
+        this.style.boxShadow='0 0 30px rgba(0,245,255,.8)';
+      });
+      orb.addEventListener('mouseleave',function(){
+        this.style.transform=''; this.style.zIndex=''; this.style.boxShadow='';
+      });
+    });
+
+    // Project 3D slight scale on container
+    document.querySelectorAll('.project-card-3d').forEach(card=>{
+      card.addEventListener('mouseenter',()=> card.style.transform='scale(1.03)');
+      card.addEventListener('mouseleave',()=> card.style.transform='');
+    });
+
+    // Contact form
+    document.getElementById('contactForm').addEventListener('submit',function(e){
+      e.preventDefault();
+      const inputs=this.querySelectorAll('input, textarea');
+      for(const i of inputs){ if(!i.value.trim()){ alert('Please fill in all fields'); return; } }
+      const btn=this.querySelector('button[type="submit"]');
+      const txt=btn.textContent; btn.textContent='Sending...'; btn.disabled=true; btn.classList.add('animate-pulse');
+      setTimeout(()=>{ alert('Thank you! I\'ll get back to you soon.'); this.reset(); btn.textContent=txt; btn.disabled=false; btn.classList.remove('animate-pulse'); },1500);
+    });
+
+    // Photo upload
+    const photoUpload=document.getElementById('photo-upload');
+    const profileImage=document.getElementById('profile-image');
+    const defaultAvatar=document.getElementById('default-avatar');
+    const profileContainer=document.getElementById('profile-container');
+    photoUpload.addEventListener('change',function(e){
+      const file=e.target.files[0];
+      if(file){
+        if(!file.type.startsWith('image/')){ alert('Please select a valid image file'); return; }
+        if(file.size>5*1024*1024){ alert('Please select an image smaller than 5MB'); return; }
+        const reader=new FileReader();
+        reader.onload=function(ev){
+          profileImage.src=ev.target.result;
+          profileImage.classList.remove('hidden');
+          defaultAvatar.classList.add('hidden');
+          profileContainer.style.transform='scale(1.1)';
+          setTimeout(()=>profileContainer.style.transform='scale(1)',200);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+    profileContainer.addEventListener('click',()=>photoUpload.click());
+
+    // EXPERIENCE controls
+    const chips=document.querySelectorAll('#experience .chip');
+    const yearRange=document.getElementById('yearRange');
+    const yearValue=document.getElementById('yearValue');
+    const searchBox=document.getElementById('searchBox');
+    const items=document.querySelectorAll('#experience .exp-item');
+    const viewTimeline=document.getElementById('viewTimeline');
+    const viewCards=document.getElementById('viewCards');
+    const viewMatrix=document.getElementById('viewMatrix');
+    const timelineView=document.getElementById('timelineView');
+    const cardsView=document.getElementById('cardsView');
+    const matrixView=document.getElementById('matrixView');
+
+    function applyFilters(){
+      const activeChip=document.querySelector('#experience .chip.active')?.dataset.chip || 'all';
+      const minYear=parseInt(yearRange.value,10);
+      const q=(searchBox.value||'').toLowerCase();
+
+      items.forEach(el=>{
+        const chipList=(el.dataset.chip||'').split(' ');
+        const start=parseInt(el.dataset.start||'1900',10);
+        const end=parseInt(el.dataset.end||'2100',10);
+        const hay=(el.dataset.title+' '+el.dataset.company+' '+el.dataset.skills).toLowerCase();
+
+        const okChip=activeChip==='all' || chipList.includes(activeChip);
+        const okYear=(start>=minYear)||(end>=minYear);
+        const okSearch=!q || hay.includes(q);
+
+        el.style.display=(okChip && okYear && okSearch)?'':'none';
+      });
+
+      hydrateCards();
+    }
+
+    // Chips
+    chips.forEach(c=>{
+      c.addEventListener('click',()=>{
+        chips.forEach(x=>x.classList.remove('active'));
+        c.classList.add('active');
+        applyFilters();
+      });
+    });
+
+    // Year + search
+    yearRange.addEventListener('input',()=>{ yearValue.textContent=yearRange.value; applyFilters(); });
+    searchBox.addEventListener('input',applyFilters);
+
+    // View toggle
+    function setView(mode){
+      timelineView.classList.toggle('hidden', mode!=='timeline');
+      cardsView.classList.toggle('hidden', mode!=='cards');
+      matrixView.classList.toggle('hidden', mode!=='matrix');
+
+      viewTimeline.classList.toggle('bg-cyan-500/20', mode==='timeline');
+      viewTimeline.classList.toggle('text-cyan-300', mode==='timeline');
+      viewCards.classList.toggle('bg-cyan-500/20', mode==='cards');
+      viewCards.classList.toggle('text-cyan-300', mode==='cards');
+      viewMatrix.classList.toggle('bg-cyan-500/20', mode==='matrix');
+      viewMatrix.classList.toggle('text-cyan-300', mode==='matrix');
+    }
+    viewTimeline.addEventListener('click',()=>setView('timeline'));
+    viewCards.addEventListener('click',()=>setView('cards'));
+    viewMatrix.addEventListener('click',()=>setView('matrix'));
+
+    // Cards view build
+    function hydrateCards(){
+      cardsView.innerHTML='';
+      document.querySelectorAll('#timelineView .exp-item').forEach(el=>{
+        if(el.style.display==='none') return;
+        const title=el.dataset.title, company=el.dataset.company, start=el.dataset.start, end=el.dataset.end;
+        const skills=(el.dataset.skills||'').split(',').slice(0,3);
+        const modalId = title.includes('Architect')?'m1':title.includes('Lead')?'m2':'m3';
+
+        const card=document.createElement('div');
+        card.className='exp-card rounded-2xl p-6';
+        card.innerHTML=`
+          <div class="flex items-center justify-between">
+            <h4 class="text-xl font-bold text-cyan-300">${title}</h4>
+            <span class="px-2 py-1 rounded-full exp-badge text-xs">${start} — ${end}</span>
+          </div>
+          <p class="mt-1 text-gray-300">${company}</p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            ${skills.map(s=>`<span class="tag tg-blue">${s.trim()}</span>`).join('')}
+          </div>
+          <div class="mt-5 flex gap-2">
+            <button class="px-3 py-2 rounded-lg bg-cyan-500/15 border border-cyan-400/40 text-cyan-200 hover:bg-cyan-500/25 transition open-modal" data-modal="${modalId}">Read more</button>
+            <button class="px-3 py-2 rounded-lg bg-purple-500/15 border border-purple-400/40 text-purple-200 hover:bg-purple-500/25 transition download-role" data-title="${title}" data-company="${company}">Download</button>
+          </div>
+        `;
+        cardsView.appendChild(card);
+      });
+      bindModalButtons();
+      bindDownloadButtons();
+    }
+    hydrateCards();
+
+    // Modals
+    function bindModalButtons(){
+      document.querySelectorAll('.open-modal').forEach(btn=>{
+        btn.onclick=()=>{
+          const id=btn.getAttribute('data-modal');
+          const m=document.getElementById(id);
+          if(m){ m.classList.remove('hidden'); m.classList.add('flex'); }
+        };
+      });
+      document.querySelectorAll('.close-modal').forEach(btn=>{
+        btn.onclick=()=>{
+          const id=btn.getAttribute('data-close');
+          const m=document.getElementById(id);
+          if(m){ m.classList.add('hidden'); m.classList.remove('flex'); }
+        };
+      });
+      document.querySelectorAll('#experience [id^="m"]').forEach(m=>{
+        m.addEventListener('click',e=>{ if(e.target===m){ m.classList.add('hidden'); m.classList.remove('flex'); }});
+      });
+    }
+    bindModalButtons();
+
+    // Download role summary as text
+    function downloadText(filename,text){
+      const blob=new Blob([text],{type:'text/plain'});
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');
+      a.href=url; a.download=filename; document.body.appendChild(a); a.click();
+      setTimeout(()=>{ URL.revokeObjectURL(url); a.remove(); },0);
+    }
+    function bindDownloadButtons(){
+      document.querySelectorAll('.download-role').forEach(btn=>{
+        btn.onclick=()=>{
+          const item=btn.closest('.exp-item');
+          const title=(item?.dataset.title)||btn.getAttribute('data-title')||'Role';
+          const company=(item?.dataset.company)||btn.getAttribute('data-company')||'';
+          const start=(item?.dataset.start)||'';
+          const end=(item?.dataset.end)||'';
+          const skills=(item?.dataset.skills)||'';
+          const content=`Role: ${title}\nCompany: ${company}\nYears: ${start} — ${end}\nSkills: ${skills}\n\nNotes:\n- Generated from Career Journey`;
+          downloadText(`${title.replace(/\s+/g,'_')}.txt`, content);
+        };
+      });
+    }
+    bindDownloadButtons();
+
+    // Initialize filters once
+    applyFilters();
+  </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9826b39302e1b9f9',t:'MTc1ODQyNzcwNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
